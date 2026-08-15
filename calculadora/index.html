@@ -13,16 +13,16 @@
         <div class="current">0</div>
     </div>
     <div class="buttons">
-        <button class="apagar">AC</button>
+        <button class="apagar" onclick="limpar()">AC</button>
         <button class="operadores">( )</button>
         <button class="operadores">%</button>
         <button class="operadores">÷</button>
-        <button>7</button>
-        <button>8</button>
+        <button onclick="mostrarNumero(7)">7</button>
+        <button>8</button onclick>
         <button>9</button>
         <button class="operadores">×</button>
         <button>4</button>
-        <button>5</button>
+        <button onclick="mostrarNumero(5)">5</button>
         <button>6</button>
         <button class="operadores">-</button>
         <button>1</button>
@@ -30,9 +30,10 @@
         <button>3</button>
         <button class="operadores">+</button>
         <button>0</button>
-        <button>,</button>
+        <button onclick="virgula()">,</button>
         <button>⌫</button>
         <button class="igualdade">=</button>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
