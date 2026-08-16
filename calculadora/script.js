@@ -12,6 +12,7 @@ function mostrarNumero(numero) {
 
 function limpar() {
     current.textContent = '0'
+    previous.textContent = ''
 }
 
 function virgula() {
@@ -20,4 +21,42 @@ function virgula() {
      } else {
       current.textContent += '.'
      }  
+}
+
+function apagar() {
+   current.textContent = current.textContent.slice(0, current.textContent.length -1)
+
+   previous.textContent = previous.textContent.slice(0, previous.textContent.length -1)
+}
+
+
+function mais() {
+    operador = '+'
+    previous.textContent = operador
+    anterior = current.textContent
+    current.textContent = ''
+}
+
+
+function menos() {
+    operador = '-'
+    previous.textContent = operador
+    anterior = current.textContent
+    current.textContent = ''
+}
+
+
+function result() {
+    
+    if( operador == '+') {
+        let res = Number(anterior) + Number(current.textContent)
+        previous.textContent = ''
+        current.textContent = res
+
+    } else if(operador == '-') {
+        let res = Number(anterior) - Number(current.textContent)
+        previous.textContent = ''
+        current.textContent = res
+    }
+    
 }
