@@ -13,6 +13,8 @@ function mostrarNumero(numero) {
 function limpar() {
     current.textContent = '0'
     previous.textContent = ''
+    operador = ''
+    anterior = ''
 }
 
 function virgula() {
@@ -26,7 +28,7 @@ function virgula() {
 function apagar() {
    current.textContent = current.textContent.slice(0, current.textContent.length -1)
 
-   previous.textContent = previous.textContent.slice(0, previous.textContent.length -1)
+   previous.textContent = previous.textContent.slice(0, previous.textContent.length - 1)
 }
 
 
@@ -45,6 +47,26 @@ function menos() {
     current.textContent = ''
 }
 
+function vezes() {
+    operador = 'x'
+    previous.textContent = operador
+    anterior = current.textContent
+    current.textContent = ''
+}
+
+function dividir() {
+    operador = '÷'
+    previous.textContent = operador
+    anterior = current.textContent
+    current.textContent = ''
+}
+
+function resto() {
+    operador = '%'
+    previous.textContent = operador
+    anterior = current.textContent
+    current.textContent = ''
+}
 
 function result() {
     
@@ -57,6 +79,26 @@ function result() {
         let res = Number(anterior) - Number(current.textContent)
         previous.textContent = ''
         current.textContent = res
-    }
-    
+
+    } else if(operador == 'x') {
+        let res = Number(anterior) * Number(current.textContent)
+        previous.textContent = ''
+        current.textContent = res
+
+    } else if(operador == '÷') {
+        if(current.textContent == '0') {
+            alert('ERRO')
+        }else {
+            let res = Number(anterior) / Number(current.textContent)
+            previous.textContent = ''
+            current.textContent = res
+        } 
+        
+    }else if(operador == '%') {
+             let res = Number(anterior) % Number(current.textContent)
+            previous.textContent = ''
+            current.textContent = res
+        }
+    operador = ''
+    anterior = ''
 }
