@@ -3,15 +3,11 @@ let previous = document.querySelector('.previous')
 let button = document.querySelector('.buttons')
 
 function mostrarNumero(numero) {
-    if(current.textContent == 0) {
-        current.textContent = numero
-    } else {
-        current.textContent += numero
-    }
+   current.textContent += numero
 }
 
 function limpar() {
-    current.textContent = '0'
+    current.textContent = ''
     previous.textContent = ''
     operador = ''
     anterior = ''
@@ -75,7 +71,7 @@ let cont = 0
 
 function parentes() {    
 
-        if(current.textContent == 0) {
+        if(current.textContent == '') {
             current.textContent = '('
                 cont++
         }else if(cont > 0){
@@ -92,7 +88,90 @@ function parentes() {
 
 function result() {
     
-    if( operador == '+') {
+     if(previous.textContent.indexOf('(') != -1) {
+            let express = previous.textContent + current.textContent
+
+            let i = express.indexOf('(')
+            let f = express.indexOf(')')
+
+            let mostrarExpress = express.slice(i + 1, f)
+
+            if(mostrarExpress.indexOf('+') != -1) {
+                let opExpress = mostrarExpress.indexOf('+')
+                let beforeOp = mostrarExpress.slice(0, opExpress)
+                let laterOp = mostrarExpress.slice(opExpress + 1)
+                
+                beforeOp = beforeOp.trim()
+                laterOp = laterOp.trim()
+
+                beforeOp = Number(beforeOp)
+                laterOp = Number(laterOp)
+
+                previous.textContent = ''
+                current.textContent = beforeOp + laterOp
+
+            } else if(mostrarExpress.indexOf('-') != -1) {
+                let opExpress = mostrarExpress.indexOf('-')
+                let beforeOp = mostrarExpress.slice(0, opExpress)
+                let laterOp = mostrarExpress.slice(opExpress + 1)
+                
+                beforeOp = beforeOp.trim()
+                laterOp = laterOp.trim()
+
+                beforeOp = Number(beforeOp)
+                laterOp = Number(laterOp)
+
+                previous.textContent = ''
+                current.textContent = beforeOp - laterOp
+                
+            }else if(mostrarExpress.indexOf('x') != -1) {
+                let opExpress = mostrarExpress.indexOf('x')
+                let beforeOp = mostrarExpress.slice(0, opExpress)
+                let laterOp = mostrarExpress.slice(opExpress + 1)
+                
+                beforeOp = beforeOp.trim()
+                laterOp = laterOp.trim()
+
+                beforeOp = Number(beforeOp)
+                laterOp = Number(laterOp)
+
+                previous.textContent = ''
+                current.textContent = beforeOp * laterOp
+
+            } else if(mostrarExpress.indexOf('÷') != -1) {
+                let opExpress = mostrarExpress.indexOf('÷')
+                let beforeOp = mostrarExpress.slice(0, opExpress)
+                let laterOp = mostrarExpress.slice(opExpress + 1)
+                
+                beforeOp = beforeOp.trim()
+                laterOp = laterOp.trim()
+
+                beforeOp = Number(beforeOp)
+                laterOp = Number(laterOp)
+
+                previous.textContent = ''
+                if(laterOp == 0) {
+                    alert('ERRO')
+                } else {
+                current.textContent = beforeOp / laterOp  
+                }
+
+            }else if(mostrarExpress.indexOf('%') != -1) {
+                let opExpress = mostrarExpress.indexOf('%')
+                let beforeOp = mostrarExpress.slice(0, opExpress)
+                let laterOp = mostrarExpress.slice(opExpress + 1)
+                
+                beforeOp = beforeOp.trim()
+                laterOp = laterOp.trim()
+
+                beforeOp = Number(beforeOp)
+                laterOp = Number(laterOp)
+
+                previous.textContent = ''
+                current.textContent = beforeOp % laterOp  
+            }        
+
+        } else if( operador == '+') {
         let res = Number(anterior) + Number(current.textContent)
         previous.textContent = ''
         current.textContent = res
