@@ -15,6 +15,7 @@ function limpar() {
     previous.textContent = ''
     operador = ''
     anterior = ''
+    entre = ''
 }
 
 function virgula() {
@@ -34,38 +35,59 @@ function apagar() {
 
 function mais() {
     operador = '+'
-    previous.textContent = operador
     anterior = current.textContent
+    previous.textContent = anterior + ' ' + operador + '\u00A0'
     current.textContent = ''
+    
 }
 
 
 function menos() {
-    operador = '-'
-    previous.textContent = operador
+     operador = '-'
     anterior = current.textContent
+    previous.textContent = anterior + ' ' + operador + '\u00A0'
     current.textContent = ''
 }
 
 function vezes() {
     operador = 'x'
-    previous.textContent = operador
-    anterior = current.textContent
+     anterior = current.textContent
+    previous.textContent = anterior + ' ' + operador + '\u00A0'
     current.textContent = ''
 }
 
 function dividir() {
     operador = '÷'
-    previous.textContent = operador
-    anterior = current.textContent
+     anterior = current.textContent
+    previous.textContent = anterior + ' ' + operador + '\u00A0'
     current.textContent = ''
+    
 }
 
 function resto() {
     operador = '%'
-    previous.textContent = operador
     anterior = current.textContent
+    previous.textContent = anterior + ' ' + operador + '\u00A0'
     current.textContent = ''
+}
+
+let cont = 0
+
+function parentes() {    
+
+        if(current.textContent == 0) {
+            current.textContent = '('
+                cont++
+        }else if(cont > 0){
+            current.textContent += ')'
+            cont--
+        } else {
+            anterior = '(' + current.textContent
+                 current.textContent =  anterior
+                 cont++
+        }
+
+       
 }
 
 function result() {

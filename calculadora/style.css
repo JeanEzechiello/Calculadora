@@ -14,6 +14,8 @@ body {
 }
 
 .display {
+    display: flex;
+    align-items: center;
     background-color: white;
     padding: 50px;
     width: 300px;
@@ -23,6 +25,11 @@ body {
     margin-top: 20px;
     margin-bottom: 15px;
     border-radius: 20px;
+}
+
+.previous,
+.current {
+    display: inline;
 }
 
 .buttons {
