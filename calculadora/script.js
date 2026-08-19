@@ -1,6 +1,7 @@
 let current = document.querySelector('.current')
 let previous = document.querySelector('.previous')
 let button = document.querySelector('.buttons')
+let anterior, operador, entre;
 
 function mostrarNumero(numero) {
    current.textContent += numero
@@ -100,6 +101,14 @@ function parentes() {
         }else if(cont > 0){
             current.textContent += ')'
             cont--
+            let posAbre = current.textContent.indexOf('(')
+            let posFecha = current.textContent.indexOf(')')
+
+            let miolo = current.textContent.slice(posAbre + 1, posFecha)
+
+            let resultado = calcularExpressão(miolo)
+            current.textContent = resultado
+
         } else {
             anterior = '(' + current.textContent
                  current.textContent =  anterior
