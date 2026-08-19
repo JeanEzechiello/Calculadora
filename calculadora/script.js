@@ -101,21 +101,12 @@ function parentes() {
         }else if(cont > 0){
             current.textContent += ')'
             cont--
-            let posAbre = current.textContent.indexOf('(')
-            let posFecha = current.textContent.indexOf(')')
-
-            let miolo = current.textContent.slice(posAbre + 1, posFecha)
-
-            let resultado = calcularExpressão(miolo)
-            current.textContent = resultado
 
         } else {
             anterior = '(' + current.textContent
                  current.textContent =  anterior
                  cont++
         }
-
-       
 }
 
 function result() {
@@ -405,5 +396,22 @@ function calcularExpressão(texto) {
         b = Number(b)
         
         return a * b
+    }
+}
+
+function pegarValorAtual() {
+    if(current.textContent.indexOf('(') != -1) {
+    let posAbre = current.textContent.indexOf('(')
+    let posFecha = current.textContent.indexOf(')')
+
+    // 2. pegar só o miolo, sem os parênteses
+    let miolo = current.textContent.slice(posAbre + 1, posFecha)
+
+    // 3. calcular o miolo
+    let resultado = calcularExpressão(miolo)
+    return resultado
+
+    }else {
+        return Number(current.textContent)
     }
 }
