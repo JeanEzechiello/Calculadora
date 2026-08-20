@@ -32,51 +32,41 @@ function apagar() {
    }
 }
 
-
-function mais() {
+function operarComSimbolo(simbolo) {
     if(cont > 0) {
-        current.textContent += '+'
+        current.textContent += simbolo
+    } else if(operador != '' && current.textContent != '') {
+        let valorAtual = pegarValorAtual()
+        let texto = anterior + operador + valorAtual
+        calcularExpressão(texto)
+
+        operador = simbolo
+        previous.textContent = anterior + ' ' + operador + '\u00A0'
+        current.textContent = ''
+        
+
     }else {
-        operador = '+'
-        anterior = current.textContent
+        operador = simbolo
+        anterior = pegarValorAtual()
         previous.textContent = anterior + ' ' + operador + '\u00A0'
         current.textContent = ''
     }
+}
+
+function mais() {
+    operarComSimbolo('+')
 }
 
 function menos() {
-    if(cont > 0) {
-        current.textContent += '-'
-    }else {
-        operador = '-'
-        anterior = current.textContent
-        previous.textContent = anterior + ' ' + operador + '\u00A0'
-        current.textContent = ''
-    }
+    operarComSimbolo('-')
 }
 
 function vezes() {
-    if(cont > 0) {
-        current.textContent += 'x'
-    } else {
-        operador = 'x'
-        anterior = current.textContent
-        previous.textContent = anterior + ' ' + operador + '\u00A0'
-        current.textContent = ''
-    }
+    operarComSimbolo('x')
 }
 
 function dividir() {
-    if(cont > 0) {
-        current.textContent += '÷'
-    } else {
-        operador = '÷'
-        anterior = current.textContent
-        previous.textContent = anterior + ' ' + operador + '\u00A0'
-        current.textContent = ''
-    }
-    
-    
+    operarComSimbolo('÷')
 }
 
 function resto() {
