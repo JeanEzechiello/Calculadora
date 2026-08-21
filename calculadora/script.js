@@ -1,7 +1,9 @@
 let current = document.querySelector('.current')
 let previous = document.querySelector('.previous')
 let button = document.querySelector('.buttons')
-let anterior, operador, entre;
+let anterior = ''
+let operador = ''
+let entre = ''
 
 function mostrarNumero(numero) {
    current.textContent += numero
@@ -38,7 +40,7 @@ function operarComSimbolo(simbolo) {
     } else if(operador != '' && current.textContent != '') {
         let valorAtual = pegarValorAtual()
         let texto = anterior + operador + valorAtual
-        calcularExpressão(texto)
+         anterior = calcularExpressão(texto)
 
         operador = simbolo
         previous.textContent = anterior + ' ' + operador + '\u00A0'
@@ -70,15 +72,26 @@ function dividir() {
 }
 
 function resto() {
-    if(cont > 0) {
-        current.textContent += '%'
-    } else {
-        operador = '%'
-        anterior = current.textContent
-        previous.textContent = anterior + ' ' + operador + '\u00A0'
-        current.textContent = ''
+    let valorPorcent = 0
+
+        if(operador == '+' || operador == '-') {
+            valorPorcent = anterior * pegarValorAtual() / 100
+        } else {
+             valorPorcent = pegarValorAtual() / 100
+        }
+
+            if(operador != '') {
+                    let texto = anterior + operador + valorPorcent
+                    current.textContent = calcularExpressão(texto)
+
+                    anterior = ''
+                    operador = ''
+                    previous.textContent = ''
+
+    }else {
+        operador = ''
+        current.textContent = valorPorcent
     }
-   
 }
 
 let cont = 0
@@ -100,183 +113,8 @@ function parentes() {
 }
 
 function result() {
-    
-     if(current.textContent.indexOf('(') != -1) {
 
-            let express = previous.textContent + current.textContent
-        console.log(express)
-            let i = express.indexOf('(')
-            let f = express.indexOf(')')
-
-            let mostrarExpress = express.slice(i + 1, f)
-
-            if(mostrarExpress.indexOf('+') != -1) {
-                let opExpress = mostrarExpress.indexOf('+')
-                let beforeOp = mostrarExpress.slice(0, opExpress)
-                let laterOp = mostrarExpress.slice(opExpress + 1)
-                
-                beforeOp = beforeOp.trim()
-                laterOp = laterOp.trim()
-
-                beforeOp = Number(beforeOp)
-                laterOp = Number(laterOp)
-
-                previous.textContent = ''
-                let resExpress = beforeOp + laterOp
-                let p = express.slice(i, f + 1)
-                express = express.replace(p, resExpress)
-                
-                let antExpress = express.slice(0, i)
-                let opAnt = antExpress.indexOf('+')
-                let antNumber = antExpress.slice(0, opAnt)
-
-                antNumber = antNumber.trim()
-                antNumber = Number(antNumber)
-
-
-                let res = antNumber + resExpress
-                current.textContent = res
-
-            
-
-
-            } else if(mostrarExpress.indexOf('-') != -1) {
-                let opExpress = mostrarExpress.indexOf('-')
-                let beforeOp = mostrarExpress.slice(0, opExpress)
-                let laterOp = mostrarExpress.slice(opExpress + 1)
-                
-                beforeOp = beforeOp.trim()
-                laterOp = laterOp.trim()
-
-                beforeOp = Number(beforeOp)
-                laterOp = Number(laterOp)
-
-                previous.textContent = ''
-                let resExpress = beforeOp - laterOp
-                let p = express.slice(i, f + 1)
-                express = express.replace(p, resExpress)
-                
-                let antExpress = express.slice(0, i)
-                if(antExpress == '') {
-                    current.textContent = resExpress
-                } else {
-                    let opAnt = antExpress.indexOf('-')
-                    let antNumber = antExpress.slice(0, opAnt)
-
-                    antNumber = antNumber.trim()
-                    antNumber = Number(antNumber)
-
-
-                    let res = antNumber - resExpress
-                    current.textContent = res
-                }
-                
-            }else if(mostrarExpress.indexOf('x') != -1) {
-                let opExpress = mostrarExpress.indexOf('x')
-                let beforeOp = mostrarExpress.slice(0, opExpress)
-                let laterOp = mostrarExpress.slice(opExpress + 1)
-                
-                beforeOp = beforeOp.trim()
-                laterOp = laterOp.trim()
-
-                beforeOp = Number(beforeOp)
-                laterOp = Number(laterOp)
-
-                previous.textContent = ''
-                let resExpress = beforeOp * laterOp
-                let p = express.slice(i, f + 1)
-                express = express.replace(p, resExpress)
-                
-                let antExpress = express.slice(0, i)
-                if(antExpress == '') {
-                    current.textContent = resExpress
-                } else {
-                    let opAnt = antExpress.indexOf('x')
-                    let antNumber = antExpress.slice(0, opAnt)
-
-                    antNumber = antNumber.trim()
-                    antNumber = Number(antNumber)
-
-
-                    let res = antNumber * resExpress
-                    current.textContent = res
-                }
-                
-
-            } else if(mostrarExpress.indexOf('÷') != -1) {
-                let opExpress = mostrarExpress.indexOf('÷')
-                let beforeOp = mostrarExpress.slice(0, opExpress)
-                let laterOp = mostrarExpress.slice(opExpress + 1)
-                
-                beforeOp = beforeOp.trim()
-                laterOp = laterOp.trim()
-
-                beforeOp = Number(beforeOp)
-                laterOp = Number(laterOp)
-
-                previous.textContent = ''
-                if(laterOp == 0) {
-                    alert('ERRO')
-                } else {
-                let resExpress = beforeOp / laterOp
-                let p = express.slice(i, f + 1)
-                express = express.replace(p, resExpress)
-                
-                let antExpress = express.slice(0, i)
-                if(antExpress == '') {
-                    current.textContent = resExpress
-                } else {
-                    let opAnt = antExpress.indexOf('÷')
-                    let antNumber = antExpress.slice(0, opAnt)
-
-                    antNumber = antNumber.trim()
-                    antNumber = Number(antNumber)
-
-
-                    let res = antNumber / resExpress
-                    current.textContent = res
-                }  
-                }
-
-            }else if(mostrarExpress.indexOf('%') != -1) {
-                let opExpress = mostrarExpress.indexOf('%')
-                let beforeOp = mostrarExpress.slice(0, opExpress)
-                let laterOp = mostrarExpress.slice(opExpress + 1)
-                
-                beforeOp = beforeOp.trim()
-                laterOp = laterOp.trim()
-
-                beforeOp = Number(beforeOp)
-                laterOp = Number(laterOp)
-
-                previous.textContent = ''
-                if(laterOp == 0) {
-                    alert('ERRO')
-                } else {
-                let resExpress = beforeOp % laterOp
-                let p = express.slice(i, f + 1)
-                express = express.replace(p, resExpress)
-                
-                let antExpress = express.slice(0, i)
-                if(antExpress == '') {
-                    current.textContent = resExpress
-                } else {
-                    let opAnt = antExpress.indexOf('%')
-                    let antNumber = antExpress.slice(0, opAnt)
-
-                    antNumber = antNumber.trim()
-                    antNumber = Number(antNumber)
-
-
-                    let res = antNumber % resExpress
-                  
-                    current.textContent = res
-                }
-                } 
-
-            }        
-
-        } else if( operador == '+') {
+         if( operador == '+') {
         let res = Number(anterior) + Number(current.textContent)
         previous.textContent = ''
         current.textContent = res
@@ -401,7 +239,12 @@ function pegarValorAtual() {
     let resultado = calcularExpressão(miolo)
     return resultado
 
-    }else {
+    }
+
+        if (current.textContent == '') {
+            return current.textContent 
+
+        }else {
         return Number(current.textContent)
     }
 }
